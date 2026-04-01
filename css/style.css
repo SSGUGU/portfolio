@@ -1,0 +1,242 @@
+/* ==========================================================================
+   CSS Table of Contents
+   1. CSS Variables & Tokens
+   2. Base Styles
+   3. Layout & Components (Web View)
+      3.1 Typography
+      3.2 Grid & Containers
+      3.3 Project Cards
+      3.4 Print/Web Toggles
+   4. The "PDF Magic" (Print Styles)
+      4.1 High Quality Print Resets
+      4.2 Force Linear Layouts
+      4.3 Page Breaks & Readability
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS Variables & Tokens
+   ========================================================================== */
+:root {
+    --bg-color: #0d1117; /* GitHub Dark-like background */
+    --text-color: #c9d1d9;
+    --heading-color: #ffffff;
+    --primary-color: #58a6ff;
+    --card-bg: #161b22;
+    --border-color: #30363d;
+    
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+    
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+}
+
+/* ==========================================================================
+   2. Base Styles
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.section {
+    margin-bottom: var(--spacing-xl);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #79c0ff;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   3. Layout & Components (Web View)
+   ========================================================================== */
+
+/* 3.1 Grid & Containers */
+.hero {
+    padding: var(--spacing-xl) 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-lg);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+}
+
+/* 2-Column layout for desktop screens */
+@media (min-width: 768px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 3.2 Project Cards */
+.project-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+}
+
+.project-media {
+    width: 100%;
+    background-color: #000;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-info {
+    padding: var(--spacing-md);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.tag {
+    background-color: rgba(88, 166, 255, 0.1);
+    color: var(--primary-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+}
+
+/* 3.3 Print/Web Display Toggles */
+.print-only {
+    display: none !important;
+}
+
+.web-only {
+    display: block;
+}
+
+.social-links.web-only {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+/* placeholders for boilerplate visual structure */
+.video-placeholder, .image-placeholder {
+    color: #888;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   4. THE "PDF MAGIC" (Print Styles)
+   ========================================================================== */
+@media print {
+    /* 4.1. Reset Theme Colors for High Print Quality */
+    :root {
+        --bg-color: #ffffff;
+        --text-color: #333333;
+        --heading-color: #000000;
+        --card-bg: #ffffff;
+        --border-color: #dddddd;
+        --primary-color: #0056b3;
+    }
+
+    body {
+        font-size: 11pt; /* Optimize typography scaling for paper */
+        background-color: var(--bg-color) !important;
+        color: var(--text-color) !important;
+    }
+    
+    a {
+        text-decoration: none !important;
+        color: var(--text-color) !important;
+    }
+
+    /* 4.2. Toggle Elements */
+    .web-only {
+        display: none !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
+
+    /* 4.3. Linearized Layout */
+    .projects-grid {
+        display: block !important; /* Force single column */
+    }
+
+    .project-card {
+        page-break-inside: avoid; /* Prevent card from splitting across pages */
+        margin-bottom: var(--spacing-lg);
+        border: none;
+        border-bottom: 2px solid var(--border-color);
+        border-radius: 0;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 4.4. Ensure readability and avoid orphans/widows */
+    h1, h2, h3, h4, p {
+        page-break-after: avoid;
+    }
+    
+    .project-media {
+        aspect-ratio: auto;
+        min-height: 200px;
+        background-color: transparent;
+        display: block;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .image-placeholder {
+        border: 1px dashed #ccc;
+        padding: 40px;
+        text-align: center;
+        color: #333;
+    }
+    
+    /* Remove base background from tag in print to look cleaner */
+    .tag {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+    }
+}

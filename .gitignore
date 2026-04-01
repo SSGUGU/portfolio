@@ -1,0 +1,11 @@
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Any temporary or IDE files
+.vscode/
+.idea/
+
+# Assume any raw/PSD design files are kept locally
+*.psd
+*.ai
