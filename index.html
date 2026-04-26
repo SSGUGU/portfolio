@@ -1,75 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gustavo Cardoso | Industry 4.0 Developer</title>
-    <meta name="description" content="Portfolio of Gustavo Cardoso, Control and Automation Engineer specializing in Industry 4.0, IIoT, and SCADA/MES Systems.">
-    <!-- Google Fonts for Modern Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gustavo Alves - Control & Automation Engineer</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  
+  <!-- AOS CSS for Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+  
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
 </head>
 <body>
-    <header class="hero">
-        <div class="container">
-            <h1>Gustavo Cardoso</h1>
-            <h2>Industry 4.0 Developer & Automation Engineer</h2>
-            <div class="social-links web-only">
-                <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://github.com/yourprofile" target="_blank" rel="noopener">GitHub</a>
-                <a href="mailto:your.email@example.com">Email</a>
-            </div>
-            <!-- This section only appears when printing to PDF -->
-            <div class="print-contact print-only">
-                <p>Email: your.email@example.com | LinkedIn: linkedin.com/in/yourprofile | GitHub: github.com/yourprofile</p>
-            </div>
+  <header class="site-header">
+    <div class="logo"><img src="assets/logo.svg" alt="Logo" /></div>
+    <nav class="nav">
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#experience">Experiência</a></li>
+        <li><a href="#services">Serviços</a></li>
+        <li><a href="#tech">Tech Stack</a></li>
+        <li><a href="#projects">Projetos</a></li>
+        <li><button id="theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero" class="hero-section" data-aos="fade-up">
+    <div class="hero-content">
+      <h1>Gustavo Alves Cardoso</h1>
+      <p class="tagline">Engenheiro de Controle e Automação – Industry 4.0, IIoT, SCADA/MES</p>
+      <a href="#experience" class="btn-primary">Conheça minha trajetória</a>
+    </div>
+    <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+      <img src="assets/hero.jpg" alt="Hero illustration (Adicione sua imagem aqui)" />
+    </div>
+  </section>
+
+  <section id="experience" class="experience-section">
+    <h2 data-aos="fade-right">Experiência Profissional</h2>
+    <div class="experience-grid">
+      <article class="exp-card" data-aos="zoom-in" data-aos-delay="100">
+        <h3>Preddata</h3>
+        <p>Cargo atual com foco em Indústria 4.0, integração TI/TO, sistemas OEE (Ignition, Java, Python, Docker).</p>
+      </article>
+      <article class="exp-card" data-aos="zoom-in" data-aos-delay="200">
+        <h3>Auti</h3>
+        <p>Desenvolvimento de projetos de automação de larga escala, sistemas SCADA/MES, padronização (Siemens, Rockwell).</p>
+      </article>
+      <article class="exp-card" data-aos="zoom-in" data-aos-delay="300">
+        <h3>Motion Up</h3>
+        <p>Manutenção, troubleshooting, diagnósticos eletrônicos e integração (Lenze, CANOpen, CLP, inversores).</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="services" class="services-section">
+    <h2 data-aos="fade-right">Serviços de Destaque</h2>
+    <div class="services-grid">
+      <article class="service-card" data-aos="flip-left" data-aos-delay="100">
+        <h3>Atendimento emergencial na Bimbo</h3>
+        <p>Substituição e programação urgente de inversores Lenze com sincronismo, reduzindo o tempo de parada da linha e evitando prejuízos milionários.</p>
+      </article>
+      <article class="service-card" data-aos="flip-left" data-aos-delay="200">
+        <h3>Interface de rede na Posigraf</h3>
+        <p>Retrofit e mascaramento de comportamento de inversores na rede CANOpen utilizando microcontrolador autoral para manter a compatibilidade com PC industrial da B&R.</p>
+      </article>
+      <article class="service-card" data-aos="flip-left" data-aos-delay="300">
+        <h3>Atendimento Profibus</h3>
+        <p>Manutenção especializada e troubleshooting de falhas complexas em redes Profibus/Profinet em grandes indústrias de papel e celulose.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="tech" class="tech-section">
+    <h2 data-aos="fade-right">Tech Stack &amp; Tecnologias</h2>
+    <ul class="tech-list" data-aos="fade-up" data-aos-delay="100">
+      <li>Siemens, Rockwell, Lenze, B&amp;R, CANOpen, EtherCat, Modbus, PROFINET</li>
+      <li>Ignition, Node‑RED, Elipse E3, Java, Python, Docker, MySQL</li>
+      <li>Indústria 4.0, OEE Systems, SCADA/MES, PID Control, TAF/TAC, PID Tuning</li>
+    </ul>
+  </section>
+
+  <section id="projects" class="projects-section">
+    <h2 data-aos="fade-right">Projetos Principais</h2>
+    <!-- Swiper Carousel -->
+    <div class="swiper projects-carousel" data-aos="fade-up" data-aos-delay="200">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide project-card">
+          <img class="project-image" src="assets/project-andon.jpg" alt="Andon da Danfoss (Adicione imagem)" />
+          <div class="project-content">
+            <h3 class="project-title">Andon da Danfoss</h3>
+            <p class="project-desc">Sistema de monitoramento Andon feito no Ignition para a linha principal da Danfoss Tallahassee.</p>
+          </div>
         </div>
-    </header>
-
-    <main class="container">
-        <section id="about" class="section">
-            <h3>About Me</h3>
-            <p>I stand at the intersection of classical engineering and modern development, bringing robust Industrial Automation and modern Web/Cloud solutions together. Experienced with SCADA/MES Systems, IIoT, Python, SQL, Docker, AWS, and modern web interfaces.</p>
-        </section>
-
-        <section id="projects" class="section">
-            <h3>Key Projects</h3>
-            <div class="projects-grid">
-                <!-- Project Card Example -->
-                <article class="project-card">
-                    <div class="project-media">
-                        <!-- Web View: Interactive Video/GIF -->
-                        <div class="media-container web-only">
-                            <!-- Placeholder for a video or animation -->
-                            <div class="video-placeholder">[Video Animation / GIF showing Interface]</div>
-                        </div>
-                        <!-- Print View: Static Image -->
-                        <div class="media-container print-only">
-                            <!-- Placeholder for a high-quality print image -->
-                            <div class="image-placeholder">[High-Quality Static Image]</div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h4>Danfoss Andon System</h4>
-                        <div class="tags">
-                            <span class="tag">#Ignition</span>
-                            <span class="tag">#Python</span>
-                            <span class="tag">#SQL</span>
-                        </div>
-                        <p><strong>Problem & Solution:</strong> Developed a SCADA system in Ignition to monitor stations with real-time status colors, providing an interactive interface with pan & zoom capabilities.</p>
-                    </div>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Gustavo Cardoso. All rights reserved.</p>
+        <div class="swiper-slide project-card">
+          <img class="project-image" src="assets/project-refatoracao.jpg" alt="Refatoração da Danfoss (Adicione imagem)" />
+          <div class="project-content">
+            <h3 class="project-title">Refatoração da Danfoss</h3>
+            <p class="project-desc">Adequação de software CLP e Ignition aos padrões globais da Danfoss, integrando diretamente com MES.</p>
+          </div>
         </div>
-    </footer>
-    <script src="js/main.js"></script>
+        <div class="swiper-slide project-card">
+          <img class="project-image" src="assets/project-oee.jpg" alt="OEE da Lear (Adicione imagem)" />
+          <div class="project-content">
+            <h3 class="project-title">OEE da Lear</h3>
+            <p class="project-desc">Software de captura de dados, registro em banco e visualização OEE usando o módulo Sepasoft no Ignition.</p>
+          </div>
+        </div>
+        <div class="swiper-slide project-card">
+          <img class="project-image" src="assets/project-java.jpg" alt="Módulo Java Open Protocol (Adicione imagem)" />
+          <div class="project-content">
+            <h3 class="project-title">Módulo Java Open Protocol</h3>
+            <p class="project-desc">Desenvolvimento em Java de driver de comunicação para Ignition, comunicando com parafusadeiras Atlas Copco.</p>
+          </div>
+        </div>
+        <div class="swiper-slide project-card">
+          <img class="project-image" src="assets/project-quimicos.jpg" alt="Químicos Indaial Papel (Adicione imagem)" />
+          <div class="project-content">
+            <h3 class="project-title">Supervisório de Químicos</h3>
+            <p class="project-desc">Controle de vazão via PID de componentes químicos, rodando em CLP S7-300 na Indaial Papel.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Add Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Gustavo Alves Cardoso. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Custom Script -->
+  <script src="js/script.js"></script>
 </body>
 </html>
