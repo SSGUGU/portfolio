@@ -25,6 +25,9 @@
 
 <body>
 
+  <!-- Custom Magnetic Cursor -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true"></div>
+
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="top">
     <div class="header-brand">
@@ -47,54 +50,54 @@
   <section id="hero" class="hero-section">
     <!-- Left: text content -->
     <div class="hero-content" data-aos="fade-up">
-      <p class="hero-eyebrow">
-        <span class="eyebrow-line"></span>
-        Control &amp; Automation Engineer
-        <span class="eyebrow-line"></span>
-      </p>
       <h1>Gustavo Alves<br /><span class="hero-accent">Cardoso</span></h1>
-      <p class="tagline">Industry 4.0 · IIoT · SCADA/MES Systems</p>
+      <p class="tagline">Control &amp; Automation Engineer</p>
       <div class="hero-actions">
         <a href="#experience" class="btn-primary">My Journey</a>
         <a href="#projects" class="btn-outline">View Projects</a>
       </div>
     </div>
 
-    <!-- Center: profile photo -->
-    <div class="hero-photo-wrapper" data-aos="fade-up" data-aos-delay="100">
-      <div class="hero-photo-frame">
-        <img
-          src="data/an-excelent-engineer.png"
-          alt="Gustavo Alves Cardoso"
-          class="hero-photo"
-        />
-        <!-- decorative ring -->
-        <div class="photo-ring photo-ring--1"></div>
-        <div class="photo-ring photo-ring--2"></div>
-      </div>
-    </div>
-
-    <!-- Right: mind-map / keyword graph -->
+    <!-- Center/Right: mind-map / keyword graph -->
     <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
       <div class="mind-map" id="mindMap" aria-label="Skill mind map">
         <!-- SVG lines drawn by JS -->
         <svg class="mind-map-svg" id="mindMapSvg" aria-hidden="true"></svg>
 
         <!-- Central node -->
-        <div class="mm-node mm-node--center" id="mmCenter">
-          <span>Engineer</span>
+        <div class="mm-node mm-node--center" id="mmCenter" data-speed="1.5">
+          <span>Systems<br>Integration</span>
         </div>
 
-        <!-- Branch nodes – positions via CSS custom props -->
-        <div class="mm-node mm-node--branch" id="mm1" style="--x:0%;--y:-130px">Industry 4.0</div>
-        <div class="mm-node mm-node--branch" id="mm2" style="--x:115px;--y:-75px">IIoT</div>
-        <div class="mm-node mm-node--branch" id="mm3" style="--x:130px;--y:30px">SCADA/MES</div>
-        <div class="mm-node mm-node--branch" id="mm4" style="--x:60px;--y:130px">OEE Systems</div>
-        <div class="mm-node mm-node--branch" id="mm5" style="--x:-75px;--y:130px">PLC / Drives</div>
-        <div class="mm-node mm-node--branch" id="mm6" style="--x:-130px;--y:30px">Ignition</div>
-        <div class="mm-node mm-node--branch" id="mm7" style="--x:-115px;--y:-75px">Python / Java</div>
-        <div class="mm-node mm-node--branch" id="mm8" style="--x:-30px;--y:-130px">Docker</div>
+        <!-- Branch nodes – radically asymmetrical and very large to overllap the photo -->
+        <!-- mm1 intercepts the top of the photo (hair cut) -->
+        <div class="mm-node mm-node--branch parallax-el" id="mm1" data-speed="3"
+          style="--x:180px;--y:-240px; font-size: 1.15rem; padding: 0.8rem 1.8rem; z-index:15;">IIoT</div>
+
+        <!-- mm2 hits the bottom-left of the photo (arm cut) -->
+        <div class="mm-node mm-node--branch parallax-el" id="mm2" data-speed="4"
+          style="--x:110px;--y:210px; font-size: 1.05rem; padding: 0.8rem 1.6rem; border-color: var(--c-accent); z-index:15;">
+          Industry 4.0</div>
+
+        <!-- Other large branching nodes filling space -->
+        <div class="mm-node mm-node--branch parallax-el" id="mm3" data-speed="2"
+          style="--x:280px;--y:-60px; font-size: 0.95rem;">SCADA/MES</div>
+        <div class="mm-node mm-node--branch parallax-el" id="mm4" data-speed="-1"
+          style="--x:-80px;--y:250px; font-size: 0.9rem;">OEE Systems</div>
+        <div class="mm-node mm-node--branch parallax-el" id="mm5" data-speed="-2.5"
+          style="--x:-260px;--y:120px; font-size: 1.1rem; padding: 0.6rem 1.4rem;">PLC / Drives</div>
+        <div class="mm-node mm-node--branch parallax-el" id="mm6" data-speed="-3"
+          style="--x:-320px;--y:-80px; font-size: 1rem; border-color: var(--c-accent-2);">Ignition</div>
+        <div class="mm-node mm-node--branch parallax-el" id="mm7" data-speed="-1.5"
+          style="--x:-190px;--y:-220px; font-size: 0.9rem;">Python / Java</div>
+        <div class="mm-node mm-node--branch parallax-el" id="mm8" data-speed="2.5"
+          style="--x:-20px;--y:-150px; font-size: 0.8rem;">Docker</div>
       </div>
+    </div>
+
+    <!-- Bottom Right: profile photo (Now outside the grid flow via CSS absolute) -->
+    <div class="hero-photo-wrapper" data-aos="fade-in" data-aos-delay="300">
+      <img src="data/an-excelent-engineer.png" alt="Gustavo Alves Cardoso" class="hero-photo" />
     </div>
   </section>
 
@@ -137,28 +140,37 @@
     <div class="ticker-track-wrapper stack-ticker-wrapper" data-aos="fade-up" data-aos-delay="100">
       <div class="ticker-track ticker-track--reverse" id="stack-track">
         <div class="ticker-item stack-item"><img src="data/stack/siemens.png" alt="Siemens" /><span>Siemens</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/Rockwell.png" alt="Rockwell" /><span>Rockwell</span></div>
+        <div class="ticker-item stack-item"><img src="data/stack/Rockwell.png" alt="Rockwell" /><span>Rockwell</span>
+        </div>
         <div class="ticker-item stack-item"><img src="data/stack/lenze.png" alt="Lenze" /><span>Lenze</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/BeR.png" alt="B&amp;R" /><span>B&amp;R</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/abb.png" alt="ABB" /><span>ABB</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/ignition.png" alt="Ignition" /><span>Ignition</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/tiaportal.png" alt="TIA Portal" /><span>TIA Portal</span></div>
+        <div class="ticker-item stack-item"><img src="data/stack/ignition.png" alt="Ignition" /><span>Ignition</span>
+        </div>
+        <div class="ticker-item stack-item"><img src="data/stack/tiaportal.png" alt="TIA Portal" /><span>TIA
+            Portal</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/step7.png" alt="Step 7" /><span>Step 7</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/codesys.png" alt="Codesys" /><span>Codesys</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/canopen.png" alt="CANopen" /><span>CANopen</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/profibus.png" alt="Profibus" /><span>Profibus</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/profinet.png" alt="Profinet" /><span>Profinet</span></div>
+        <div class="ticker-item stack-item"><img src="data/stack/profibus.png" alt="Profibus" /><span>Profibus</span>
+        </div>
+        <div class="ticker-item stack-item"><img src="data/stack/profinet.png" alt="Profinet" /><span>Profinet</span>
+        </div>
         <div class="ticker-item stack-item"><img src="data/stack/modbus.png" alt="Modbus" /><span>Modbus</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/ethernet-ip.png" alt="EtherNet/IP" /><span>EtherNet/IP</span></div>
+        <div class="ticker-item stack-item"><img src="data/stack/ethernet-ip.png"
+            alt="EtherNet/IP" /><span>EtherNet/IP</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/opc-ua.png" alt="OPC UA" /><span>OPC UA</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/mqtt.png" alt="MQTT" /><span>MQTT</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/python.png" alt="Python" /><span>Python</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/java.png" alt="Java" /><span>Java</span></div>
         <div class="ticker-item stack-item"><img src="data/stack/docker.png" alt="Docker" /><span>Docker</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/sepasoft.png" alt="Sepasoft" /><span>Sepasoft</span></div>
+        <div class="ticker-item stack-item"><img src="data/stack/sepasoft.png" alt="Sepasoft" /><span>Sepasoft</span>
+        </div>
         <div class="ticker-item stack-item"><img src="data/stack/ifm.png" alt="IFM" /><span>IFM</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/javascript.png" alt="JavaScript" /><span>JavaScript</span></div>
-        <div class="ticker-item stack-item"><img src="data/stack/html-css.png" alt="HTML/CSS" /><span>HTML/CSS</span></div>
+        <div class="ticker-item stack-item"><img src="data/stack/javascript.png"
+            alt="JavaScript" /><span>JavaScript</span></div>
+        <div class="ticker-item stack-item"><img src="data/stack/html-css.png" alt="HTML/CSS" /><span>HTML/CSS</span>
+        </div>
       </div>
     </div>
 
@@ -197,9 +209,12 @@
           <img class="project-image" src="assets/project-andon.jpg" alt="Danfoss Andon System" />
           <div class="project-content">
             <h3 class="project-title">Danfoss Andon System</h3>
-            <p class="project-desc">Andon monitoring system built in Ignition for the main production line at Danfoss Tallahassee.</p>
+            <p class="project-desc">Andon monitoring system built in Ignition for the main production line at Danfoss
+              Tallahassee.</p>
             <button class="card-expand-btn" data-modal="modal-proj-1" aria-label="Expand details">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
               Details
             </button>
           </div>
@@ -210,9 +225,12 @@
           <img class="project-image" src="assets/project-refatoracao.jpg" alt="Danfoss Standardization" />
           <div class="project-content">
             <h3 class="project-title">Danfoss Standardization</h3>
-            <p class="project-desc">PLC and Ignition software refactoring aligned to Danfoss global standards, directly integrated with MES.</p>
+            <p class="project-desc">PLC and Ignition software refactoring aligned to Danfoss global standards, directly
+              integrated with MES.</p>
             <button class="card-expand-btn" data-modal="modal-proj-2" aria-label="Expand details">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
               Details
             </button>
           </div>
@@ -223,9 +241,12 @@
           <img class="project-image" src="assets/project-oee.jpg" alt="Lear OEE System" />
           <div class="project-content">
             <h3 class="project-title">Lear OEE System</h3>
-            <p class="project-desc">Data capture, database logging, and OEE visualization using the Sepasoft module on Ignition.</p>
+            <p class="project-desc">Data capture, database logging, and OEE visualization using the Sepasoft module on
+              Ignition.</p>
             <button class="card-expand-btn" data-modal="modal-proj-3" aria-label="Expand details">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
               Details
             </button>
           </div>
@@ -236,9 +257,12 @@
           <img class="project-image" src="assets/project-java.jpg" alt="Java Open Protocol Module" />
           <div class="project-content">
             <h3 class="project-title">Java Open Protocol Module</h3>
-            <p class="project-desc">Custom Java driver for Ignition enabling communication with Atlas Copco tightening tools via Open Protocol.</p>
+            <p class="project-desc">Custom Java driver for Ignition enabling communication with Atlas Copco tightening
+              tools via Open Protocol.</p>
             <button class="card-expand-btn" data-modal="modal-proj-4" aria-label="Expand details">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
               Details
             </button>
           </div>
@@ -251,7 +275,9 @@
             <h3 class="project-title">Chemical Flow SCADA</h3>
             <p class="project-desc">PID-based chemical flow control running on Siemens S7-300 PLC at Indaial Papel.</p>
             <button class="card-expand-btn" data-modal="modal-proj-5" aria-label="Expand details">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
               Details
             </button>
           </div>
@@ -275,9 +301,12 @@
       <article class="service-card" data-modal="modal-svc-1" data-aos="fade-up" data-aos-delay="100">
         <div class="service-icon">🚨</div>
         <h3>Emergency Response – Bimbo</h3>
-        <p>Urgent replacement and programming of Lenze drives with synchronization, reducing production line downtime and preventing multi-million dollar losses.</p>
+        <p>Urgent replacement and programming of Lenze drives with synchronization, reducing production line downtime
+          and preventing multi-million dollar losses.</p>
         <button class="card-expand-btn" data-modal="modal-svc-1" aria-label="Expand details">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+          </svg>
           Details
         </button>
       </article>
@@ -285,9 +314,12 @@
       <article class="service-card" data-modal="modal-svc-2" data-aos="fade-up" data-aos-delay="200">
         <div class="service-icon">🔌</div>
         <h3>Network Interface – Posigraf</h3>
-        <p>Retrofit and CANopen behavior masking using a custom microcontroller to maintain compatibility with a B&amp;R industrial PC during drive replacement.</p>
+        <p>Retrofit and CANopen behavior masking using a custom microcontroller to maintain compatibility with a B&amp;R
+          industrial PC during drive replacement.</p>
         <button class="card-expand-btn" data-modal="modal-svc-2" aria-label="Expand details">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+          </svg>
           Details
         </button>
       </article>
@@ -295,9 +327,12 @@
       <article class="service-card" data-modal="modal-svc-3" data-aos="fade-up" data-aos-delay="300">
         <div class="service-icon">🔧</div>
         <h3>Profibus / Profinet Support</h3>
-        <p>Specialized maintenance and complex fault-finding on Profibus/Profinet networks at large-scale pulp and paper industries.</p>
+        <p>Specialized maintenance and complex fault-finding on Profibus/Profinet networks at large-scale pulp and paper
+          industries.</p>
         <button class="card-expand-btn" data-modal="modal-svc-3" aria-label="Expand details">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+          </svg>
           Details
         </button>
       </article>
@@ -335,7 +370,8 @@
               <span class="exp-role">Automation Engineer</span>
             </div>
           </div>
-          <p>Development of large-scale automation projects, SCADA/MES systems and standardization using Siemens and Rockwell platforms.</p>
+          <p>Development of large-scale automation projects, SCADA/MES systems and standardization using Siemens and
+            Rockwell platforms.</p>
         </div>
       </article>
       <article class="exp-card" data-aos="fade-up" data-aos-delay="300">
@@ -348,7 +384,8 @@
               <span class="exp-role">Field Automation Technician</span>
             </div>
           </div>
-          <p>Maintenance, troubleshooting, electronic diagnostics, and system integration with Lenze drives, CANOpen, PLCs, and variable frequency drives.</p>
+          <p>Maintenance, troubleshooting, electronic diagnostics, and system integration with Lenze drives, CANOpen,
+            PLCs, and variable frequency drives.</p>
         </div>
       </article>
     </div>
@@ -374,18 +411,24 @@
     </div>
     <div class="modal-body">
       <div class="modal-image-placeholder">
-        <span>📷 Add project screenshot here<br/><small>Place images in assets/ and reference them below</small></span>
+        <span>📷 Add project screenshot here<br /><small>Place images in assets/ and reference them below</small></span>
       </div>
       <h3>Challenge</h3>
-      <p>The Danfoss Tallahassee plant needed real-time visibility into production-line stoppages and anomalies. Operators lacked a unified view to respond quickly to equipment faults, leading to hidden downtime and delayed escalation.</p>
+      <p>The Danfoss Tallahassee plant needed real-time visibility into production-line stoppages and anomalies.
+        Operators lacked a unified view to respond quickly to equipment faults, leading to hidden downtime and delayed
+        escalation.</p>
       <h3>Solution</h3>
-      <p>Designed and deployed a full Andon system inside Ignition Perspective. The solution included custom tag bindings to PLC signals, a color-coded station status board visible on multiple screens across the shop floor, and an alarm escalation logic that auto-notified supervisors after defined response windows.</p>
+      <p>Designed and deployed a full Andon system inside Ignition Perspective. The solution included custom tag
+        bindings to PLC signals, a color-coded station status board visible on multiple screens across the shop floor,
+        and an alarm escalation logic that auto-notified supervisors after defined response windows.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
-        <span>Ignition Perspective</span><span>Siemens PLC</span><span>SQL</span><span>OPC-UA</span><span>Sepasoft</span>
+        <span>Ignition Perspective</span><span>Siemens
+          PLC</span><span>SQL</span><span>OPC-UA</span><span>Sepasoft</span>
       </div>
       <h3>Outcomes</h3>
-      <p>Response time to line stoppages reduced by ~40%. Supervisors gained a dashboard with shift-by-shift OEE breakdown, directly feeding the MES reporting chain.</p>
+      <p>Response time to line stoppages reduced by ~40%. Supervisors gained a dashboard with shift-by-shift OEE
+        breakdown, directly feeding the MES reporting chain.</p>
     </div>
   </div>
 
@@ -402,15 +445,19 @@
         <span>📷 Add project screenshot here</span>
       </div>
       <h3>Challenge</h3>
-      <p>Danfoss corporate mandated that all their plants worldwide adopt a unified software standard for PLC code and SCADA/MES integration. The Brazilian plant's legacy codebase was largely custom and incompatible.</p>
+      <p>Danfoss corporate mandated that all their plants worldwide adopt a unified software standard for PLC code and
+        SCADA/MES integration. The Brazilian plant's legacy codebase was largely custom and incompatible.</p>
       <h3>Solution</h3>
-      <p>Led a full refactoring of Siemens PLC function blocks (step-by-step migration to corporate FB library), and redesigned the Ignition project to follow the global HMI template. Developed Python scripts for data bridging between legacy historians and the new MES APIs.</p>
+      <p>Led a full refactoring of Siemens PLC function blocks (step-by-step migration to corporate FB library), and
+        redesigned the Ignition project to follow the global HMI template. Developed Python scripts for data bridging
+        between legacy historians and the new MES APIs.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
         <span>Siemens TIA Portal</span><span>Ignition</span><span>Python</span><span>MES API</span><span>SQL</span>
       </div>
       <h3>Outcomes</h3>
-      <p>Plant passed Danfoss global audit with zero critical non-conformances. The standardized code reduced future support time by an estimated 60%.</p>
+      <p>Plant passed Danfoss global audit with zero critical non-conformances. The standardized code reduced future
+        support time by an estimated 60%.</p>
     </div>
   </div>
 
@@ -427,15 +474,19 @@
         <span>📷 Add project screenshot here</span>
       </div>
       <h3>Challenge</h3>
-      <p>Lear's production team had no automated method to calculate OEE (Availability × Performance × Quality). Data was collected manually in spreadsheets, making real-time decisions impossible.</p>
+      <p>Lear's production team had no automated method to calculate OEE (Availability × Performance × Quality). Data
+        was collected manually in spreadsheets, making real-time decisions impossible.</p>
       <h3>Solution</h3>
-      <p>Built a complete data-capture layer reading PLC signals via OPC-UA into Ignition tags. Used the Sepasoft MES module to define production models (ideal cycle times, shift schedules, reason codes). Created dashboards for operators, supervisors, and plant managers with drill-down capability.</p>
+      <p>Built a complete data-capture layer reading PLC signals via OPC-UA into Ignition tags. Used the Sepasoft MES
+        module to define production models (ideal cycle times, shift schedules, reason codes). Created dashboards for
+        operators, supervisors, and plant managers with drill-down capability.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
         <span>Ignition</span><span>Sepasoft MES</span><span>OPC-UA</span><span>MySQL</span><span>Rockwell PLC</span>
       </div>
       <h3>Outcomes</h3>
-      <p>OEE baseline established for 12 production lines. Management identified a 15% availability loss due to untracked micro-stoppages and implemented corrective actions within the first month.</p>
+      <p>OEE baseline established for 12 production lines. Management identified a 15% availability loss due to
+        untracked micro-stoppages and implemented corrective actions within the first month.</p>
     </div>
   </div>
 
@@ -452,15 +503,21 @@
         <span>📷 Add project screenshot here</span>
       </div>
       <h3>Challenge</h3>
-      <p>Atlas Copco tightening tools communicate via Open Protocol (TCP), a standard not natively supported by Ignition. No off-the-shelf module was available, leaving tightening data outside the SCADA/MES loop.</p>
+      <p>Atlas Copco tightening tools communicate via Open Protocol (TCP), a standard not natively supported by
+        Ignition. No off-the-shelf module was available, leaving tightening data outside the SCADA/MES loop.</p>
       <h3>Solution</h3>
-      <p>Developed a custom Ignition module in Java using the Ignition Module SDK. The module opens persistent TCP connections to each Atlas Copco controller, parses Open Protocol MID packets, and exposes tightening results (torque, angle, OK/NOK) as real-time Ignition tags accessible to any Perspective screen or database transaction group.</p>
+      <p>Developed a custom Ignition module in Java using the Ignition Module SDK. The module opens persistent TCP
+        connections to each Atlas Copco controller, parses Open Protocol MID packets, and exposes tightening results
+        (torque, angle, OK/NOK) as real-time Ignition tags accessible to any Perspective screen or database transaction
+        group.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
-        <span>Java</span><span>Ignition Module SDK</span><span>Open Protocol</span><span>TCP/IP</span><span>Atlas Copco</span>
+        <span>Java</span><span>Ignition Module SDK</span><span>Open Protocol</span><span>TCP/IP</span><span>Atlas
+          Copco</span>
       </div>
       <h3>Outcomes</h3>
-      <p>Tightening traceability fully integrated into MES. Each assembly cycle's fastening data is logged with timestamp, tool ID, and pass/fail — enabling full production traceability without manual inspection steps.</p>
+      <p>Tightening traceability fully integrated into MES. Each assembly cycle's fastening data is logged with
+        timestamp, tool ID, and pass/fail — enabling full production traceability without manual inspection steps.</p>
     </div>
   </div>
 
@@ -477,15 +534,19 @@
         <span>📷 Add project screenshot here</span>
       </div>
       <h3>Challenge</h3>
-      <p>The paper manufacturing process required precise dosing of chemical additives. Manual control caused quality inconsistencies and chemical waste, increasing production costs.</p>
+      <p>The paper manufacturing process required precise dosing of chemical additives. Manual control caused quality
+        inconsistencies and chemical waste, increasing production costs.</p>
       <h3>Solution</h3>
-      <p>Implemented cascade PID control loops on a Siemens S7-300 PLC to regulate the flow of multiple chemical components based on paper machine speed. A SCADA supervisory layer provided operators with live trend visualization and setpoint adjustments within safety limits.</p>
+      <p>Implemented cascade PID control loops on a Siemens S7-300 PLC to regulate the flow of multiple chemical
+        components based on paper machine speed. A SCADA supervisory layer provided operators with live trend
+        visualization and setpoint adjustments within safety limits.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
         <span>Siemens S7-300</span><span>Step 7</span><span>PID Control</span><span>SCADA</span><span>Profibus</span>
       </div>
       <h3>Outcomes</h3>
-      <p>Chemical waste reduced by ~20%. Paper quality consistency improved across shift changes, eliminating manual operator variance as a source of defects.</p>
+      <p>Chemical waste reduced by ~20%. Paper quality consistency improved across shift changes, eliminating manual
+        operator variance as a source of defects.</p>
     </div>
   </div>
 
@@ -506,15 +567,21 @@
         <span>📷 Add site photo here</span>
       </div>
       <h3>Situation</h3>
-      <p>Bimbo's main bread production line came to a complete halt due to a failed Lenze drive controlling the dough-transport conveyor. The line stoppage was threatening multi-million dollar losses per hour due to perishable batch spoilage.</p>
+      <p>Bimbo's main bread production line came to a complete halt due to a failed Lenze drive controlling the
+        dough-transport conveyor. The line stoppage was threatening multi-million dollar losses per hour due to
+        perishable batch spoilage.</p>
       <h3>Intervention</h3>
-      <p>Responded on-site within hours. The replacement drive required full parameterization including synchronized speed ramp-up tuned to adjacent conveyor segments — a critical requirement to avoid dough shear faults. Programmed the drive parameters from scratch using Lenze's engineering software, validated synchronization at low speed, and gradually ramped the line to full production.</p>
+      <p>Responded on-site within hours. The replacement drive required full parameterization including synchronized
+        speed ramp-up tuned to adjacent conveyor segments — a critical requirement to avoid dough shear faults.
+        Programmed the drive parameters from scratch using Lenze's engineering software, validated synchronization at
+        low speed, and gradually ramped the line to full production.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
         <span>Lenze Drive</span><span>CANopen</span><span>Synchronization</span><span>On-site Diagnostics</span>
       </div>
       <h3>Result</h3>
-      <p>Line restored to full production in under 4 hours. No batch loss. Client avoided estimated R$800k in downtime costs for that shift.</p>
+      <p>Line restored to full production in under 4 hours. No batch loss. Client avoided estimated R$800k in downtime
+        costs for that shift.</p>
     </div>
   </div>
 
@@ -531,15 +598,22 @@
         <span>📷 Add site photo here</span>
       </div>
       <h3>Situation</h3>
-      <p>Posigraf's printing press used a B&amp;R industrial PC as the motion master, communicating with a fleet of drives over CANopen. The drives needed replacement but the new models had a different CANopen profile (PDO mapping), making them incompatible with the existing B&amp;R program — which could not be modified.</p>
+      <p>Posigraf's printing press used a B&amp;R industrial PC as the motion master, communicating with a fleet of
+        drives over CANopen. The drives needed replacement but the new models had a different CANopen profile (PDO
+        mapping), making them incompatible with the existing B&amp;R program — which could not be modified.</p>
       <h3>Intervention</h3>
-      <p>Designed and built a custom microcontroller-based adapter that sat between the B&amp;R master and the new drives. The adapter presented the old CANopen profile to the B&amp;R while translating all commands and status words to the new drive's profile in real time — effectively masking the hardware change from the host controller.</p>
+      <p>Designed and built a custom microcontroller-based adapter that sat between the B&amp;R master and the new
+        drives. The adapter presented the old CANopen profile to the B&amp;R while translating all commands and status
+        words to the new drive's profile in real time — effectively masking the hardware change from the host
+        controller.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
-        <span>CANopen</span><span>B&amp;R Automation PC</span><span>Microcontroller (custom)</span><span>Reverse Engineering</span>
+        <span>CANopen</span><span>B&amp;R Automation PC</span><span>Microcontroller (custom)</span><span>Reverse
+          Engineering</span>
       </div>
       <h3>Result</h3>
-      <p>Full machine compatibility restored without touching the B&amp;R source code. Machine resumed operation with zero visible change to operator or existing software.</p>
+      <p>Full machine compatibility restored without touching the B&amp;R source code. Machine resumed operation with
+        zero visible change to operator or existing software.</p>
     </div>
   </div>
 
@@ -556,15 +630,20 @@
         <span>📷 Add site photo here</span>
       </div>
       <h3>Situation</h3>
-      <p>Large-scale pulp and paper plants with hundreds of field devices on Profibus segments experienced intermittent communication faults, drive trips, and unexplained PLC errors that in-house teams couldn't diagnose.</p>
+      <p>Large-scale pulp and paper plants with hundreds of field devices on Profibus segments experienced intermittent
+        communication faults, drive trips, and unexplained PLC errors that in-house teams couldn't diagnose.</p>
       <h3>Intervention</h3>
-      <p>Conducted systematic network analysis using Profibus protocol analyzers to identify signal degradation, termination issues, duplicate node addresses, and incompatible GSD configurations. Replaced faulty network components, corrected cable routing, and reconfigured problematic nodes.</p>
+      <p>Conducted systematic network analysis using Profibus protocol analyzers to identify signal degradation,
+        termination issues, duplicate node addresses, and incompatible GSD configurations. Replaced faulty network
+        components, corrected cable routing, and reconfigured problematic nodes.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
-        <span>Profibus DP</span><span>Profinet</span><span>Protocol Analyzers</span><span>Siemens PLCs</span><span>Drive Diagnostics</span>
+        <span>Profibus DP</span><span>Profinet</span><span>Protocol Analyzers</span><span>Siemens PLCs</span><span>Drive
+          Diagnostics</span>
       </div>
       <h3>Result</h3>
-      <p>Resolved long-standing intermittent faults across multiple plants. In one case, a root-cause was traced to a single corroded connector responsible for 3 months of unexplained production losses.</p>
+      <p>Resolved long-standing intermittent faults across multiple plants. In one case, a root-cause was traced to a
+        single corroded connector responsible for 3 months of unexplained production losses.</p>
     </div>
   </div>
 

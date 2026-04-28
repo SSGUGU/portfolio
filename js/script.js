@@ -55,6 +55,76 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(drawMindMapLines, 300);
   window.addEventListener('resize', drawMindMapLines);
 
+  // ── Hero Mouse Parallax ──
+  const heroSection = document.getElementById('hero');
+  const parallaxNodes = document.querySelectorAll('.mm-node'); // Selects both center and branches
+  if (heroSection && parallaxNodes.length > 0) {
+    heroSection.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 768) return; // Disable on mobile
+
+      const rect = heroSection.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      // Normalized offset -1 to 1
+      const offsetX = (x - centerX) / centerX;
+      const offsetY = (y - centerY) / centerY;
+
+      parallaxNodes.forEach(node => {
+        const speed = parseFloat(node.dataset.speed) || 1;
+        // Translate magnitude (pixels)
+        const moveX = offsetX * speed * 20; 
+        const moveY = offsetY * speed * 20;
+        
+        node.style.setProperty('--px', `${moveX}px`);
+        node.style.setProperty('--py', `${moveY}px`);
+      });
+
+      // Redraw SVG connections so they stick to the moving nodes
+      window.requestAnimationFrame(drawMindMapLines);
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+      parallaxNodes.forEach(node => {
+        node.style.setProperty('--px', `0px`);
+        node.style.setProperty('--py', `0px`);
+      });
+      setTimeout(drawMindMapLines, 50);
+    });
+  }
+
+  // ── Custom Magnetic Cursor ──
+  const cursor = document.getElementById('customCursor');
+  if (cursor) {
+    // Hide default cursor but only on desktop
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;
+    if (!isMobile) {
+      document.addEventListener('mousemove', (e) => {
+        // Use requestAnimationFrame for high-performance 60fps movement
+        window.requestAnimationFrame(() => {
+          cursor.style.left = `${e.clientX}px`;
+          cursor.style.top = `${e.clientY}px`;
+          cursor.style.opacity = '1';
+        });
+      });
+
+      // Hide it when the mouse leaves the window
+      document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+      });
+
+      // Add a hover effect for interactive elements
+      const interactiveEls = document.querySelectorAll('a, button, .card-expand-btn, .mm-node');
+      interactiveEls.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+      });
+    }
+  }
+
   // ── Swiper: Projects ──
   new Swiper('.projects-carousel', {
     slidesPerView: 1,
