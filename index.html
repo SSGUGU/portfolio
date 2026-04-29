@@ -107,7 +107,7 @@
     <div class="ticker-track-wrapper">
       <div class="ticker-track" id="companies-track">
         <div class="ticker-item company-item"><img src="data/companies/PredData_Logo_1.png" alt="PredData" /></div>
-        <div class="ticker-item company-item"><img src="data/companies/auti-logo.svg" alt="Auti" /></div>
+        <div class="ticker-item company-item"><img src="data/companies/auti-logo.png" alt="Auti" /></div>
         <div class="ticker-item company-item"><img src="data/companies/MOTIONUP.png" alt="Motion Up" /></div>
         <div class="ticker-item company-item"><img src="data/companies/danfoss.png" alt="Danfoss" /></div>
         <div class="ticker-item company-item"><img src="data/companies/lear.png" alt="Lear" /></div>
@@ -285,10 +285,12 @@
 
         <!-- PROJECT 6 -->
         <div class="swiper-slide project-card" data-modal="modal-proj-6">
-          <img class="project-image" src="assets/projects/lenzeServoPositioningControl.png" alt="RAMA Machine Retrofit" />
+          <img class="project-image" src="assets/projects/lenzeServoPositioningControl.png"
+            alt="RAMA Machine Retrofit" />
           <div class="project-content">
             <h3 class="project-title">RAMA Machine Retrofit</h3>
-            <p class="project-desc">Complete retrofit of 20+ Lenze drives and a new B&amp;R PLC featuring complex CANopen synchronization.</p>
+            <p class="project-desc">Complete retrofit of 20+ Lenze drives and a new B&amp;R PLC featuring complex
+              CANopen synchronization.</p>
             <button class="card-expand-btn" data-modal="modal-proj-6" aria-label="Expand details">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
@@ -379,7 +381,7 @@
         <div class="exp-dot"></div>
         <div class="exp-body">
           <div class="exp-meta">
-            <img src="data/companies/auti-logo.svg" alt="Auti" class="exp-logo" />
+            <img src="data/companies/auti-logo.png" alt="Auti" class="exp-logo" />
             <div>
               <h3>Auti</h3>
               <span class="exp-role">Automation Engineer</span>
@@ -400,7 +402,13 @@
             </div>
           </div>
           <p>Maintenance, troubleshooting, electronic diagnostics, and system integration with Lenze drives, CANOpen,
-            PLCs, and variable frequency drives.</p>
+            PLCs, and variable frequency drives.
+            <br>
+            <br>
+            Special thanks for <strong>Francis Pini, Vitor and all the team</strong> for the opportunity and learnship
+            during
+            my time at Motion Up.
+          </p>
         </div>
       </article>
     </div>
@@ -417,7 +425,7 @@
   <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true"></div>
 
   <!-- Modal: Project 1 – Danfoss Andon -->
-  <div class="modal" id="modal-proj-1" role="dialog" aria-modal="true" aria-labelledby="mproj1-title">
+  <div class="modal modal--andon" id="modal-proj-1" role="dialog" aria-modal="true" aria-labelledby="mproj1-title">
     <button class="modal-close" aria-label="Close">&times;</button>
     <div class="modal-header">
       <div class="modal-badge">Project</div>
@@ -425,7 +433,14 @@
       <p class="modal-meta">Inductive Automation Ignition · Danfoss Tallahassee</p>
     </div>
     <div class="modal-body">
-      <img class="modal-image" src="assets/projects/DanfossAndon.png" alt="Danfoss Andon System" />
+
+      <!-- Interactive pan / zoom demo -->
+      <div class="andon-demo-wrapper">
+        <div class="andon-demo-hint">🖱 Drag to pan · Scroll / Pinch to zoom · Tap <strong>⊞</strong> to fit</div>
+        <iframe class="andon-iframe" src="assets/projects/andon-viewer.html" title="Danfoss Andon – Interactive Demo"
+          loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+
       <h3>Challenge</h3>
       <p>The Danfoss Tallahassee plant needed real-time visibility into production-line stoppages and anomalies.
         Operators lacked a unified view to respond quickly to equipment faults, leading to hidden downtime and delayed
@@ -454,7 +469,8 @@
       <p class="modal-meta">Siemens PLC · Ignition · MES Integration</p>
     </div>
     <div class="modal-body">
-      <img class="modal-image" src="assets/projects/danfossStandardization2.png" alt="Danfoss Standardization Configuration" />
+      <img class="modal-image" src="assets/projects/danfossStandardization2.png"
+        alt="Danfoss Standardization Configuration" />
       <h3>Challenge</h3>
       <p>Danfoss corporate mandated that all their plants worldwide adopt a unified software standard for PLC code and
         SCADA/MES integration. The Brazilian plant's legacy codebase was largely custom and incompatible.</p>
@@ -537,7 +553,7 @@
       <p class="modal-meta">Siemens S7-300 · PID Control · Indaial Papel</p>
     </div>
     <div class="modal-body">
-      <img class="modal-image" src="assets/projects/chemicalsIndaialPapel.jpg" alt="Chemical Flow Indaial Papel" />
+      <img class="modal-image" src="assets/projects/chemicalsIndaialPapel2.jpg" alt="Chemical Flow Indaial Papel" />
       <h3>Challenge</h3>
       <p>The paper manufacturing process required precise dosing of chemical additives. Manual control caused quality
         inconsistencies and chemical waste, increasing production costs.</p>
@@ -564,17 +580,23 @@
       <p class="modal-meta">Lenze Drives · B&amp;R PLC · Menegotti Têxtil</p>
     </div>
     <div class="modal-body">
-      <img class="modal-image" src="assets/projects/lenzeServoPositioningControl.png" alt="RAMA Retrofit Lenze Drives" />
+      <img class="modal-image" src="assets/projects/rama2.png" alt="RAMA Network" />
       <h3>Challenge</h3>
-      <p>A textile circulating current dryer machine (RAMA) needed a complete retrofit. The legacy Lenze 9300 drives required replacement with more advanced 8400 generation controllers across a complex CANopen network architecture involving more than 20 coordinated devices.</p>
+      <p>A textile circulating current dryer machine (RAMA) needed a complete retrofit. The legacy Lenze 9300 drives
+        required replacement with more advanced 8400 generation controllers across a complex CANopen network
+        architecture involving more than 20 coordinated devices.</p>
       <h3>Solution</h3>
-      <p>Retrofitted all 20+ drives and implemented complex drive-to-drive synchronization over CANopen for precise needle control during fabric transport. The existing B&amp;R PLC and HMI were fully reprogrammed, bringing external dryer controls directly into the PLC via MODBUS RTU.</p>
+      <p>Retrofitted all 20+ drives and implemented complex drive-to-drive synchronization over CANopen for precise
+        needle control during fabric transport. The existing B&amp;R PLC and HMI were fully reprogrammed, bringing
+        external dryer controls directly into the PLC via MODBUS RTU.</p>
       <h3>Technologies Used</h3>
       <div class="modal-tags">
-        <span>Lenze 8400 Drives</span><span>B&amp;R PLC / HMI</span><span>CANopen</span><span>MODBUS RTU</span><span>Drive-to-drive Synchronization</span>
+        <span>Lenze 8400 Drives</span><span>B&amp;R PLC / HMI</span><span>CANopen</span><span>MODBUS
+          RTU</span><span>Drive-to-drive Synchronization</span>
       </div>
       <h3>Outcomes</h3>
-      <p>Complete modernization of a critical production asset. The complex synchronized network now ensures robust fabric transport without imposing heavy motion-control burdens on the main PLC.</p>
+      <p>Complete modernization of a critical production asset. The complex synchronized network now ensures robust
+        fabric transport without imposing heavy motion-control burdens on the main PLC.</p>
     </div>
   </div>
 
@@ -591,23 +613,45 @@
       <p class="modal-meta">Lenze Drives · Synchronization · On-site Emergency</p>
     </div>
     <div class="modal-body">
-      <img class="modal-image" src="assets/services/bimbo2.png" alt="Emergency Response Bimbo" />
+      <img class="modal-image" src="assets/services/bimbo.png" alt="Emergency Lenze Drive Replacement - Bimbo" />
+
       <h3>Situation</h3>
-      <p>Bimbo's main bread production line came to a complete halt due to a failed Lenze drive controlling the
-        dough-transport conveyor. The line stoppage was threatening multi-million dollar losses per hour due to
-        perishable batch spoilage.</p>
+      <p>
+        Bimbo’s RAP10 production line was suffering critical downtime caused by two failed Lenze drives responsible for
+        synchronized motion control. Production losses were estimated at approximately R$1 million every 10 hours of
+        stoppage, creating a high-pressure emergency involving plant supervision, management, and regional leadership.
+      </p>
+
       <h3>Intervention</h3>
-      <p>Responded on-site within hours. The replacement drive required full parameterization including synchronized
-        speed ramp-up tuned to adjacent conveyor segments — a critical requirement to avoid dough shear faults.
-        Programmed the drive parameters from scratch using Lenze's engineering software, validated synchronization at
-        low speed, and gradually ramped the line to full production.</p>
+      <p>
+        Dispatched on-site for an emergency retrofit, I replaced and recommissioned two new Lenze drives in just two
+        days,
+        fully reproducing the original synchronization logic between both drives. Reprogrammed the new drives, adapted
+        the
+        Rockwell PLC logic and communications for the new hardware, validated drive coordination with maintenance
+        support,
+        and restarted the complete production line under live operational pressure.
+      </p>
+
       <h3>Technologies Used</h3>
       <div class="modal-tags">
-        <span>Lenze Drive</span><span>CANopen</span><span>Synchronization</span><span>On-site Diagnostics</span>
+        <span>Lenze Drives</span>
+        <span>Rockwell PLC</span>
+        <span>Drive Synchronization</span>
+        <span>Commissioning</span>
+        <span>Industrial Networking</span>
+        <span>Emergency Troubleshooting</span>
       </div>
+
       <h3>Result</h3>
-      <p>Line restored to full production in under 4 hours. No batch loss. Client avoided estimated R$800k in downtime
-        costs for that shift.</p>
+      <p>
+        Production was restored after a complete emergency migration of two critical drives, preserving synchronized
+        machine
+        operation and avoiding major downtime losses. The project required rapid integration with the OEM, electrical
+        maintenance and plant team, and stands out as a high-pressure recovery executed successfully under severe time
+        and
+        business constraints.
+      </p>
     </div>
   </div>
 
@@ -620,7 +664,7 @@
       <p class="modal-meta">CANopen · B&amp;R · Custom Microcontroller</p>
     </div>
     <div class="modal-body">
-      <img class="modal-image" src="assets/projects/posigraf.jpg" alt="Network Interface Posigraf" />
+      <img class="modal-image" src="assets/services/posigrafMask.png" alt="Network Interface Posigraf" />
       <h3>Situation</h3>
       <p>Posigraf's printing press used a B&amp;R industrial PC as the motion master, communicating with a fleet of
         drives over CANopen. The drives needed replacement but the new models had a different CANopen profile (PDO

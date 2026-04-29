@@ -124,6 +124,7 @@ body.light {
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  scroll-padding-top: 64px;
 }
 
 body {
@@ -135,6 +136,7 @@ body {
   overflow-x: hidden;
   position: relative;
   width: 100%;
+  padding-top: 64px; /* Matches header height */
 }
 
 h1,
@@ -183,8 +185,10 @@ img {
 
 /* ===== HEADER ===== */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -493,8 +497,8 @@ body.light .site-header {
 }
 
 .ticker-item.company-item:hover img {
-  /* On hover colorize and add a protective glow for dark logos against dark bg */
-  filter: grayscale(0%) brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+  /* Keep grayscale and remove shadow in dark mode, just brighten it slightly */
+  filter: grayscale(100%) brightness(0) invert(0.9);
   transform: scale(1.15);
 }
 
@@ -971,7 +975,7 @@ body.light .exp-logo {
 
 /* Light mode photo shadow */
 body.light .hero-photo {
-  filter: drop-shadow(-15px 15px 30px rgba(26, 107, 240, 0.3));
+  filter: drop-shadow(-15px 15px 30px rgba(0, 0, 0, 0.3));
 }
 
 /* ================================================
@@ -1245,6 +1249,42 @@ body.light .card-expand-btn {
   border-radius: var(--radius);
   margin-bottom: 1.5rem;
   background: var(--c-surface-2);
+}
+
+/* ── Danfoss Andon – wider modal with interactive demo ── */
+.modal--andon {
+  max-width: min(1000px, 95vw);
+}
+
+.andon-demo-wrapper {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  background: #ffffff;
+}
+
+.andon-demo-hint {
+  padding: 0.45rem 1rem;
+  font-size: 0.75rem;
+  color: var(--c-text-muted);
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--c-border);
+  user-select: none;
+}
+
+.andon-iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  min-height: 260px;
+}
+
+@media (max-width: 600px) {
+  .andon-iframe { aspect-ratio: 4 / 3; }
+  .modal--andon { max-width: 100vw; }
 }
 
 /* Light Mode modal tweaks */

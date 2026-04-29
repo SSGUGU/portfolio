@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danfoss Andon – Interactive Demo</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      overflow: hidden;
+      background: #ffffff;
+      font-family: system-ui, sans-serif;
+      width: 100%;
+      height: 100%;
+    }
+
+    div {
+      touch-action: none;
+      user-select: none;
+    }
+
+    /* ── Viewport container ── */
+    #everything {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Pannable/zoomable canvas ── */
+    #content {
+      transform-origin: 0 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Production line background image ── */
+    #production-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* ── Transparent click-capture overlay (pan mode) ── */
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ════════════════════════════
+       STATION CARDS
+    ════════════════════════════ */
+    .station-card {
+      position: absolute;
+      width: 140px;
+      background: rgba(13, 17, 23, 0.88);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      pointer-events: auto;
+    }
+
+    .station-card:hover {
+      transform: scale(1.12);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.75);
+    }
+
+    .station-header {
+      padding: 6px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* Status colours */
+    .status-green .station-header {
+      background: #1a7f3c;
+    }
+
+    .status-amber .station-header {
+      background: #b45309;
+    }
+
+    .status-red .station-header {
+      background: #9b1d1d;
+    }
+
+    .station-body {
+      padding: 8px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .station-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field-label {
+      font-size: 0.58rem;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .field-value {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #e6edf3;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Card positions ── */
+    #card-op05 {
+      top: 12%;
+      left: 8%;
+    }
+
+    #card-op12 {
+      top: 55%;
+      left: 38%;
+    }
+
+    #card-op21 {
+      top: 20%;
+      left: 68%;
+    }
+
+    /* ════════════════════════════
+       CONTROLS BAR
+    ════════════════════════════ */
+    #controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(22, 27, 34, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 5px 8px;
+      backdrop-filter: blur(8px);
+      z-index: 20;
+      touch-action: auto;
+    }
+
+    #controls button {
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+      touch-action: auto;
+    }
+
+    #controls button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    #controls button svg {
+      width: 20px;
+      height: 20px;
+      fill: #c9d1d9;
+    }
+
+    #zoom-label {
+      font-size: 0.72rem;
+      color: #8b949e;
+      width: 42px;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .ctrl-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 0 2px;
+    }
+
+    /* Active pan mode indicator */
+    #pan-btn.active {
+      background: rgba(88, 166, 255, 0.18);
+    }
+
+    #pan-btn.active svg {
+      fill: #58a6ff;
+    }
+  </style>
+</head>
+
+<!-- SVG defs -->
+<svg style="display:none">
+  <defs>
+    <symbol id="ico-fit" viewBox="0 0 24 24">
+      <path
+        d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z" />
+    </symbol>
+    <symbol id="ico-minus" viewBox="0 0 24 24">
+      <path
+        d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 0 0 16 9.5 6.5 6.5 0 0 0 9.5 3 6.5 6.5 0 0 0 3 9.5 6.5 6.5 0 0 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7V9z" />
+    </symbol>
+    <symbol id="ico-plus" viewBox="0 0 24 24">
+      <path
+        d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 0 0 16 9.5 6.5 6.5 0 0 0 9.5 3 6.5 6.5 0 0 0 3 9.5 6.5 6.5 0 0 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+      <path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z" />
+    </symbol>
+    <symbol id="ico-pan" viewBox="-1 -2 28 28">
+      <path
+        d="M23 5.5V20c0 2.2-1.8 4-4 4h-7.3c-1.08 0-2.1-.43-2.85-1.19L1 14.83s1.26-1.23 1.3-1.25c.22-.19.49-.29.79-.29.22 0 .42.06.6.16C3.73 13.46 8 15.91 8 15.91V4c0-.83.67-1.5 1.5-1.5S11 3.17 11 4v7h1V1.5C12 .67 12.67 0 13.5 0S15 .67 15 1.5V11h1V2.5C16 1.67 16.67 1 17.5 1S19 1.67 19 2.5V11h1V5.5C20 4.67 20.67 4 21.5 4S23 4.67 23 5.5z" />
+    </symbol>
+  </defs>
+</svg>
+
+<body>
+  <div id="everything">
+
+    <!-- Pannable canvas -->
+    <div id="content">
+      <img id="production-bg" src="productionLine.png" alt="Production Line" draggable="false" />
+
+      <!-- Station Card 1 – OP05 (green = running) -->
+      <div class="station-card status-green" id="card-op05">
+        <div class="station-header">OP05 · Running</div>
+        <div class="station-body">
+          <div class="station-field">
+            <span class="field-label">Part Serial</span>
+            <span class="field-value">124124</span>
+          </div>
+          <div class="station-field">
+            <span class="field-label">Model Code</span>
+            <span class="field-value">TT590</span>
+          </div>
+          <div class="station-field">
+            <span class="field-label">Cycle Time</span>
+            <span class="field-value">48 s</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Station Card 2 – OP12 (amber = downtime) -->
+      <div class="station-card status-amber" id="card-op12">
+        <div class="station-header">OP12 · Downtime</div>
+        <div class="station-body">
+          <div class="station-field">
+            <span class="field-label">Part Serial</span>
+            <span class="field-value">987654</span>
+          </div>
+          <div class="station-field">
+            <span class="field-label">Model Code</span>
+            <span class="field-value">TT610</span>
+          </div>
+          <div class="station-field">
+            <span class="field-label">Downtime</span>
+            <span class="field-value">12 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Station Card 3 – OP21 (red = fault) -->
+      <div class="station-card status-red" id="card-op21">
+        <div class="station-header">OP21 · Fault</div>
+        <div class="station-body">
+          <div class="station-field">
+            <span class="field-label">Part Serial</span>
+            <span class="field-value">555001</span>
+          </div>
+          <div class="station-field">
+            <span class="field-label">Model Code</span>
+            <span class="field-value">TT450</span>
+          </div>
+          <div class="station-field">
+            <span class="field-label">Fault Code</span>
+            <span class="field-value">E-0032</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- / #content -->
+
+    <!-- Click-capture overlay -->
+    <div id="overlay"></div>
+
+    <!-- Controls bar -->
+    <div id="controls">
+      <button id="fit-btn" title="Fit to screen"><svg>
+          <use href="#ico-fit" />
+        </svg></button>
+      <div class="ctrl-divider"></div>
+      <button id="zoom-out-btn" title="Zoom out"><svg>
+          <use href="#ico-minus" />
+        </svg></button>
+      <span id="zoom-label">100%</span>
+      <button id="zoom-in-btn" title="Zoom in"><svg>
+          <use href="#ico-plus" />
+        </svg></button>
+      <div class="ctrl-divider"></div>
+      <button id="pan-btn" class="active" title="Pan mode"><svg>
+          <use href="#ico-pan" />
+        </svg></button>
+    </div>
+
+  </div><!-- / #everything -->
+
+  <script>
+    const content = document.getElementById('content');
+    const overlay = document.getElementById('overlay');
+    const zoomLabel = document.getElementById('zoom-label');
+    const panBtn = document.getElementById('pan-btn');
+
+    // ── State ──────────────────────────────────────────
+    let scale = 1;
+    let originX = 0;
+    let originY = 0;
+    let isPanMode = true;
+
+    let startX = 0, startY = 0;
+    let pinchDist = 0;
+
+    // ── Helpers ────────────────────────────────────────
+    function applyTransform(durationMs = 0) {
+      content.style.transition = durationMs ? `transform ${durationMs}ms ease` : 'none';
+      content.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
+      zoomLabel.textContent = Math.round(scale * 100) + '%';
+    }
+
+    function zoom(factor, cx = window.innerWidth / 2, cy = window.innerHeight / 2) {
+      const prev = scale;
+      scale *= factor;
+      scale = Math.max(0.15, Math.min(scale, 10));
+      originX += cx / scale - cx / prev;
+      originY += cy / scale - cy / prev;
+      applyTransform();
+    }
+
+    function fit() {
+      scale = 1;
+      originX = 0;
+      originY = 0;
+      applyTransform(400);
+    }
+
+    function setPanMode(on) {
+      isPanMode = on;
+      overlay.style.display = on ? 'block' : 'none';
+      panBtn.classList.toggle('active', on);
+    }
+
+    // ── Init ───────────────────────────────────────────
+    window.addEventListener('load', () => {
+      fit();
+      setPanMode(true);
+    });
+
+    // ── Button events ──────────────────────────────────
+    document.getElementById('fit-btn').addEventListener('click', () => fit());
+    document.getElementById('zoom-in-btn').addEventListener('click', () => zoom(1.2));
+    document.getElementById('zoom-out-btn').addEventListener('click', () => zoom(1 / 1.2));
+    panBtn.addEventListener('click', () => setPanMode(!isPanMode));
+
+    // ── Mouse ──────────────────────────────────────────
+    overlay.addEventListener('wheel', e => {
+      e.preventDefault();
+      zoom(e.deltaY < 0 ? 1.1 : 1 / 1.1, e.clientX, e.clientY);
+    }, { passive: false });
+
+    overlay.addEventListener('mousedown', e => {
+      e.preventDefault();
+      startX = e.clientX; startY = e.clientY;
+
+      function onMove(e) {
+        originX += (e.clientX - startX) / scale;
+        originY += (e.clientY - startY) / scale;
+        startX = e.clientX; startY = e.clientY;
+        applyTransform();
+      }
+      function onUp() {
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+
+    // ── Touch ──────────────────────────────────────────
+    overlay.addEventListener('touchstart', e => {
+      e.preventDefault();
+      cacheTouch(e);
+    }, { passive: false });
+
+    overlay.addEventListener('touchmove', e => {
+      e.preventDefault();
+      if (e.touches.length === 1) {
+        const t = e.touches[0];
+        originX += (t.clientX - startX) / scale;
+        originY += (t.clientY - startY) / scale;
+        startX = t.clientX; startY = t.clientY;
+      } else if (e.touches.length === 2) {
+        const d = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        if (pinchDist) {
+          const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+          const prev = scale;
+          scale *= d / pinchDist;
+          originX += mx / scale - mx / prev + (mx - startX) / scale;
+          originY += my / scale - my / prev + (my - startY) / scale;
+          startX = mx; startY = my;
+        }
+        pinchDist = d;
+      }
+      applyTransform();
+    }, { passive: false });
+
+    overlay.addEventListener('touchend', e => {
+      e.preventDefault();
+      cacheTouch(e);
+    }, { passive: false });
+
+    function cacheTouch(e) {
+      pinchDist = 0;
+      if (e.touches.length === 0) { startX = startY = 0; }
+      else if (e.touches.length === 1) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+      else {
+        startX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        startY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        pinchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      }
+    }
+  </script>
+</body>
+
+</html>

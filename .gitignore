@@ -9,3 +9,6 @@ Thumbs.db
 # Assume any raw/PSD design files are kept locally
 *.psd
 *.ai
+
+# Portfolio data (sensible information)
+data/porfolio
