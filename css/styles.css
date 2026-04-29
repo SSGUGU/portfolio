@@ -98,6 +98,20 @@ body.light {
   transform: scale(0);
 }
 
+/* Hide default cursor on desktop when using custom cursor */
+@media (pointer: fine) {
+
+  body,
+  a,
+  button,
+  .card-expand-btn,
+  .swiper-button-next,
+  .swiper-button-prev,
+  .mm-node {
+    cursor: none !important;
+  }
+}
+
 /* ===== RESET & BASE ===== */
 *,
 *::before,
@@ -414,6 +428,8 @@ body.light .site-header {
   position: relative;
   width: 100%;
   overflow: hidden;
+  padding: 1.5rem 0;
+  margin: -1.5rem 0;
   /* fade edges */
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
@@ -471,19 +487,38 @@ body.light .site-header {
   width: auto;
   max-width: 120px;
   object-fit: contain;
-  filter: grayscale(100%) brightness(0.75);
+  /* Dark mode default: solid light gray (invert makes black logos white) */
+  filter: grayscale(100%) brightness(0) invert(0.65);
   transition: filter var(--transition), transform var(--transition);
 }
 
 .ticker-item.company-item:hover img {
-  filter: grayscale(0%) brightness(1);
+  /* On hover colorize and add a protective glow for dark logos against dark bg */
+  filter: grayscale(0%) brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
   transform: scale(1.15);
 }
 
-/* Stack logos – colored with label */
-.stack-ticker-wrapper {
-  padding: 0;
+body.light .ticker-item.company-item img {
+  filter: grayscale(100%) brightness(0) opacity(0.5);
+  /* Solid dark gray */
 }
+
+body.light .ticker-item.company-item:hover img {
+  filter: grayscale(0%) brightness(1) opacity(1);
+}
+
+/* Specific scale adjustments for naturally smaller logos */
+.ticker-item.company-item img[alt="Menegotti"],
+.ticker-item.company-item img[alt="Arauco"],
+.ticker-item.company-item img[alt="Tetra Pak"],
+.ticker-item.company-item img[alt="Neodent"],
+.ticker-item.company-item img[alt="Posigraf"] {
+  height: 55px;
+  max-width: 140px;
+}
+
+/* Stack logos – colored with label */
+/* .stack-ticker-wrapper inherits padding/margin from .ticker-track-wrapper to prevent clipping */
 
 .ticker-item.stack-item {
   flex-shrink: 0;
