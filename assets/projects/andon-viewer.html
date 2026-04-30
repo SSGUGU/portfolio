@@ -69,7 +69,7 @@
     ════════════════════════════ */
     .station-card {
       position: absolute;
-      width: 140px;
+      width: 118px;
       background: rgba(13, 17, 23, 0.88);
       border-radius: 10px;
       overflow: hidden;
@@ -85,8 +85,8 @@
     }
 
     .station-header {
-      padding: 6px 10px;
-      font-size: 0.72rem;
+      padding: 5px 8px;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -107,10 +107,10 @@
     }
 
     .station-body {
-      padding: 8px 10px 10px;
+      padding: 6px 8px 8px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
     .station-field {
@@ -119,14 +119,14 @@
     }
 
     .field-label {
-      font-size: 0.58rem;
+      font-size: 0.48rem;
       color: #8b949e;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
 
     .field-value {
-      font-size: 0.78rem;
+      font-size: 0.68rem;
       font-weight: 600;
       color: #e6edf3;
       font-family: 'Courier New', monospace;
@@ -134,18 +134,18 @@
 
     /* ── Card positions ── */
     #card-op05 {
-      top: 12%;
+      top: 65%;
       left: 8%;
     }
 
     #card-op12 {
-      top: 55%;
-      left: 38%;
+      top: 5%;
+      left: 55%;
     }
 
     #card-op21 {
-      top: 20%;
-      left: 68%;
+      top: 5%;
+      left: 77%;
     }
 
     /* ════════════════════════════
@@ -214,6 +214,31 @@
 
     #pan-btn.active svg {
       fill: #58a6ff;
+    }
+
+    /* ── Responsive adjustments for mobile ── */
+    @media (max-width: 600px) {
+      .station-card {
+        width: 82px;
+      }
+
+      .station-header {
+        padding: 4px 6px;
+        font-size: 0.45rem;
+      }
+
+      .station-body {
+        padding: 4px 6px 6px;
+        gap: 2px;
+      }
+
+      .field-label {
+        font-size: 0.35rem;
+      }
+
+      .field-value {
+        font-size: 0.5rem;
+      }
     }
   </style>
 </head>
